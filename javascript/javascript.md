@@ -1,8 +1,9 @@
 # Javascript
 [[javascript]]
-
 An entry page for things dealing with Javascript.
 [MDN - Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+
+
 
 ## Primitives
 [[javascript-primitives]]
