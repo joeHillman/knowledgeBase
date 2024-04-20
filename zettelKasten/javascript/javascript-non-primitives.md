@@ -1,4 +1,4 @@
-# ../javascript-non-primitives
+# ./javascript-non-primitives
 * Javascript values that are not primitives are objects.
 * Objects group related code.
   
