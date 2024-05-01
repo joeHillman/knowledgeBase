@@ -8,7 +8,7 @@ A workflow is
 * * an event in the repo
 * * manually
 * * at a defined schedule
-* are defined in .github/workflows directory
+* must be defined in .github/workflows directory
 * can be one of multiple workflows
 
 Workflows require a few things...
