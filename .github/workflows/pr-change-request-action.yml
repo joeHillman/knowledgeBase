@@ -1,0 +1,34 @@
+name: To TODO status on change request
+run-name: ${{ github.triggering_actor }} provided code feedback
+on:
+  pull_request_review:
+    types: [submitted]
+    # secrets:
+      # SVC_GITHUB_TO_JIRA:
+        # required: true
+jobs:
+  move-into-todo-on-change-request:
+    if: github.event.review.state == 'CHANGES_REQUESTED'
+    name: ${{ github.triggering_actor }} is requesting changes to ${{ github.ref_name }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Adjust permissions and install packages
+        # you will need to adjust file permissions for the runner
+        run: |
+          chmod +x ./.github/workflows/return-ticket-name.js
+          npm install -g run-func
+      - name: Setup ticket key variable and fire curl command to move ${{github.event.pull_request.head.ref}} back to TODO
+        # env:
+          # SVC_GITHUB_TO_JIRA_SECRET: ${{ secrets.SVC_GITHUB_TO_JIRA }}
+          # run: |
+          # ticketKey=$(run-func ./.github/workflows/return-ticket-name.js returnTicketName ${{github.event.pull_request.head.ref}})
+          # echo "${ticketKey} will be moved back to TODO"
+          # curl --request POST \
+            # --url "https://bostonglobe.atlassian.net/rest/api/3/issue/$ticketKey/transitions" \
+            # --user "svc-github-to-jira@globe.com:$SVC_GITHUB_TO_JIRA_SECRET" \
+            # --header 'Accept: application/json' \
+            # --header 'Content-Type: application/json' \
+            # --data '{"transition": {"id": "11"}}'
+      - run: echo "🍏 This job's status is ${{ job.status }}."
